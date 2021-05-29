@@ -1,4 +1,4 @@
-name: 'openapi to json schema action'
+name: 'openapi spec to json schema'
 description: 'Retrieve openapi specification file and return json schema file'
 branding:
   icon: 'box'
