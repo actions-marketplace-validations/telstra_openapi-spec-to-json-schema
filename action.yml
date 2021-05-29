@@ -1,0 +1,32 @@
+name: 'openapi to json schema action'
+description: 'Retrieve openapi specification file and return json schema file'
+branding:
+  icon: 'box'
+  color: 'purple'
+inputs:
+  specification-url:
+    description: 'Specification URL'
+    required: true
+    # default: ''
+outputs:
+  json-schema-file:
+    description: 'The generated json schema file'
+    value: ${{ steps.schema-id.outputs.json-schema-file }}
+runs:
+  using: composite
+  steps:
+    - id: specification-id
+      run: |
+        echo "Generating json schema from openapi specification file ${{ inputs.specification-url }}"
+      shell: bash
+    - shell: bash
+      run: |
+        docker run -u 1001 --rm --workdir ${{ github.workspace }} -v "${{ github.workspace }}":"${{ github.workspace }}" \
+          openapitools/openapi-generator-cli generate \
+          -i ${{ inputs.specification-url }} \
+          -g openapi \
+          -o ${{ github.workspace }}/openapi
+    - id: schema-id
+      run: |
+        echo "::set-output name=json-schema-file::openapi.json"
+      shell: bash
