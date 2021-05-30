@@ -4,9 +4,9 @@ This action retrieves a validated openapi specification file from a user provide
 
 ## Inputs
 
-### `openapi spec url`
+### `specification-url`
 
-**Required** The openapi specification file origin url.
+**Required** The openapi specification origin url.
 
 ## Outputs
 
